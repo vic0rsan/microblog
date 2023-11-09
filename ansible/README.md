@@ -23,7 +23,7 @@ To destroy instances use `ansible-playbook terminate_instances.yml`.
 
 #### Playbooks
 
-We have 4 playbooks `provision_instances`, `terminate_instances`, `gather_vm_instances`, `site`.
+We have 4 playbooks `provision_instances`, `terminate_instances`, `gather_instances`, `site`.
 
 **provision_instances** is used to create 3 servers on Azure together with their respective security groups, network settings and storage.   
 It Uses the roles provision_instances that waits for all of the security_groups to be created. It also connects the load balancers ip to your domain name.

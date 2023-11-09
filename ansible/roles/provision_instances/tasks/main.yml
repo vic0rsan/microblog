@@ -2,4 +2,3 @@
 -   include_tasks: create_instance.yml
     collections:
         - azure.azcollection
-    with_items: "{{ instances }}"

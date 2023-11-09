@@ -7,7 +7,7 @@
     hosts: local
     gather_facts: False
     tasks:
-        - include_vars: roles/test/vars/main.yml
+        - include_vars: roles/provision_instances/vars/main.yml
         - include_tasks: roles/provision_instances/tasks/add_vms_as_hosts.yml
 
 
