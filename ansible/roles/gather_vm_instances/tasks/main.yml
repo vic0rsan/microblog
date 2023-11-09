@@ -20,6 +20,9 @@
         - "{{ item.name[0:-3] }}" # instance name from provision_instances/vars/main.yml
         - "{{ item.tags.Type }}" # instance type from provision_instances/vars/main.yml
         - devops
+        # the keys below are dynamic and can have any name and value. A way to add data to the host which can be read later
+        iname: "{{ item.name[0:-3] }}"
+        itype: "{{ item.tags.Type }}"
     with_items: "{{ az_facts.vms }}"
     when: item.tags.PublicIP is defined and item.power_state == "running"
 

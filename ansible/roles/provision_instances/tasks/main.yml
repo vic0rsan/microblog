@@ -1,7 +1,4 @@
 ---
--   include_tasks: vnet.yml
-    collections:
-        - azure.azcollection
 -   include_tasks: create_instance.yml
     collections:
         - azure.azcollection

@@ -3,7 +3,7 @@
     azure_rm_publicipaddress:
         resource_group: "{{ resource_group }}"
         allocation_method: Static
-        name: "{{ item.name }}-ip"
+        name: "{{ iname }}-ip"
         tags: "{{ vmtags }}"
     delegate_to: localhost
     register: output_ip_address
@@ -15,13 +15,13 @@
 -   name: Create virtual network interface card
     azure_rm_networkinterface:
         resource_group: "{{ resource_group }}"
-        name: "{{ item.name }}-NIC"
+        name: "{{ iname }}-NIC"
         virtual_network: "microblog-Vnet"
         subnet: "microblog-Subnet"
         ip_configurations:
             - name: ipconfig1
-              public_ip_address_name: "{{ item.name }}-ip"
-        security_group: "{{ item.type }}-sg"
+              public_ip_address_name: "{{ iname }}-ip"
+        security_group: "{{ itype }}-sg"
         tags: "{{ vmtags }}"
 
 -   name: Ensure "A" records for loadbalancer
@@ -33,7 +33,7 @@
         state: present
         records:
             - entry: "{{ output_ip_address.state.ip_address }}"
-    when: item.name == 'loadbalancer'
+    when: iname == 'loadbalancer'
     loop: "{{ relative_names }}"
     loop_control: 
         loop_var: relative_name
@@ -44,14 +44,14 @@
 -   name: Create VM
     azure_rm_virtualmachine:
         resource_group: "{{ resource_group }}"
-        name: "{{ item.name }}-VM"
+        name: "{{ iname }}-VM"
         admin_username: "{{ root_user }}"
         ssh_password_enabled: false
         ssh_public_keys:
             - path: "/home/{{ root_user }}/.ssh/authorized_keys"
-              key_data: "{{ lookup('file', local_ssh_location) }}"
+              key_data: "{{ lookup('file', pub_ssh_key_location) }}"
         vm_size: Standard_B1s
-        network_interfaces: "{{ item.name }}-NIC"
+        network_interfaces: "{{ iname }}-NIC"
         managed_disk_type: Standard_LRS
         os_disk_size_gb: 30
         image:
@@ -61,5 +61,5 @@
             version: latest
         tags:
             StudentId: "{{ vmtags.StudentId }}"
-            Type: "{{ item.type }}"
+            Type: "{{ itype }}"
             PublicIP: "{{ output_ip_address.state.ip_address }}"
