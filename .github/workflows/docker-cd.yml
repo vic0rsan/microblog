@@ -1,0 +1,36 @@
+name: build
+
+on: [release]
+
+jobs:
+  test:
+    uses: ./.github/workflows/test-ci.yml
+
+  publish:
+    name: Build docker images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: gusu20
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Prod
+        run: |
+          docker build --no-cache -t microblog:${{ github.event.release.tag_name }}-prod -t microblog:prod -f docker/Dockerfile_prod .
+          docker tag microblog:${{ github.event.release.tag_name }}-prod gusu20/microblog:${{ github.event.release.tag_name }}-prod
+
+      - name: Push Prod image to DockerHub
+        run: docker push gusu20/microblog:${{ github.event.release.tage_name }}-prod
+
+      - name: Build Docker Test
+        run: |
+          docker build --no-cache -t microblog:${{ github.event.release.tag_name }}-test -t microblog:prod -f docker/Dockerfile_test .
+          docker tag microblog:${{ github.event.release.tag_name }}-test gusu20/microblog:${{ github.event.release.tag_name }}-test
+
+      - name: Push Test image to DockerHub
+        run: docker push gusu20/microblog:${{ github.event.release.tage_name }}-test
