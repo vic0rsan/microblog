@@ -1,0 +1,32 @@
+services:
+  prod:
+    image: gusu20/microblog:1.0.0-prod
+    ports:
+      - "8000:5000"
+    links:
+      - db:mysql
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mysql+pymysql://microblog:password@mysql/microblog"
+    restart:
+      "always"
+
+  db:
+    image: mysql/mysql-server:5.7
+    container_name: "mysql"
+    environment:
+      MYSQL_DATABASE: 'microblog'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_USER: 'microblog'
+      MYSQL_PASSWORD: 'password'
+    volumes:
+      - '/var/lib/mysql:/var/lib/mysql'
+    restart:
+      "always"
+
+  test:
+    image: gusu20/microblog:1.0.0-test
+    volumes:
+      - ./app:/home/microblog/app
+      - ./tests:/home/microblog/tests
