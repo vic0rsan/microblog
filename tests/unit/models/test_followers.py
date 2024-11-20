@@ -5,8 +5,6 @@ import pytest
 from app.models import User, Post
 from app import db
 
-...
-
 def test_follow(test_app): # pylint: disable=unused-argument
     """
     Test that follow appends new Users to followed.
