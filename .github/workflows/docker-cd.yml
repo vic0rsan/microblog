@@ -1,9 +1,14 @@
 name: Docker CD
 
-on: [release]
+on: 
+  workflow_call: {}
+  release:
 
 jobs:
+  test:
+    uses: ./.github/workflows/test-ci.yml
   publish:
+    needs: [test]
     name: Build docker images
     runs-on: ubuntu-latest
     steps:
