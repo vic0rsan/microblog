@@ -1,12 +1,16 @@
 name: Docker CD
 
 on:
+  workflow_call:
   release:
+    secrets:
+      DOCKER_PASSWORD:
+        required: true
 
 jobs:
   test:
     uses: ./.github/workflows/test-ci.yml
-  publish:
+  build:
     needs: [test]
     name: Build docker images
     runs-on: ubuntu-latest
