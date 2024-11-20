@@ -1,12 +1,6 @@
 name: build
 
-on: 
-  workflow_call:
-    secrets:
-      DOCKER_PASSWORD:
-        required: true
-
-jobs:
+on: [release]
   publish:
     name: Build docker images
     runs-on: ubuntu-latest
