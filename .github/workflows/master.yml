@@ -7,4 +7,3 @@ on:
 jobs:
   build-and-publish-to-dockerhub:
     uses: ./.github/workflows/docker-cd.yml
-    needs: test-ci
