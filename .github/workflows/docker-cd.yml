@@ -3,7 +3,7 @@ name: Docker CD
 on:
   release:
   workflow_run:
-    workflows: ["Docker CD"]
+    workflows: ["Test CI"]
 
 jobs:
   test:
