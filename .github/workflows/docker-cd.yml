@@ -2,8 +2,8 @@ name: Docker CD
 
 on:
   release:
-    types:
-      - published
+  workflow_run:
+    workflows: ["Docker CD"]
 
 jobs:
   test:
