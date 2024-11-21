@@ -1,0 +1,9 @@
+name: Workflow action managing release events on master
+
+on:
+  release:
+
+jobs:
+  build-and-publish-to-dockerhub:
+    uses: ./.github/workflows/docker-cd.yml
+    needs: test-ci
