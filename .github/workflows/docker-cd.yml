@@ -1,7 +1,8 @@
 name: Docker CD
 
 on:
-  workflow_call:
+  release:
+    types: [published]
 
 jobs:
   test:

@@ -1,6 +1,7 @@
 name: Test CI
 
 on:
+  publish:
   workflow_call:
 
 jobs:
