@@ -1,7 +1,7 @@
 name: Test CI
 
 on:
-  publish:
+  push:
   workflow_call:
 
 jobs:
