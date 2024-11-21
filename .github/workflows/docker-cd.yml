@@ -1,6 +1,13 @@
 name: Docker CD
 
-on: [release]
+on:
+  workflow_call:
+    release:
+    secrets:
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
 
 jobs:
   test:
