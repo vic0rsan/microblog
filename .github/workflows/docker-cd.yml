@@ -28,7 +28,7 @@ jobs:
           docker tag microblog:${{ github.event.release.tag_name }}-prod gusu20/microblog:${{ github.event.release.tag_name }}-prod
 
       - name: Push Prod image to DockerHub
-        run: docker push gusu20/microblog:${{ github.event.release.tage_name }}-prod
+        run: docker push gusu20/microblog:${{ github.event.release.tag_name }}-prod
 
       - name: Build Docker Test
         run: |
@@ -36,4 +36,4 @@ jobs:
           docker tag microblog:${{ github.event.release.tag_name }}-test gusu20/microblog:${{ github.event.release.tag_name }}-test
 
       - name: Push Test image to DockerHub
-        run: docker push gusu20/microblog:${{ github.event.release.tage_name }}-test
+        run: docker push gusu20/microblog:${{ github.event.release.tag_name }}-test
