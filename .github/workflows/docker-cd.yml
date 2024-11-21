@@ -1,7 +1,6 @@
 name: Docker CD
 
 on:
-  release:
   workflow_run:
     workflows: ["Test CI"]
 
