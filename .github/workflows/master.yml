@@ -2,6 +2,7 @@ name: Workflow action managing release events on master
 
 on:
   release:
+    types: [published]
 
 jobs:
   build-and-publish-to-dockerhub:
