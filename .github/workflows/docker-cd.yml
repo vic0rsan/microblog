@@ -4,8 +4,6 @@ on:
   workflow_call:
 
 jobs:
-  test:
-    uses: ./.github/workflows/test-ci.yml
   build:
     needs: [test]
     name: Build docker images
